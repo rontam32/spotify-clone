@@ -1,0 +1,31 @@
+.name-col {
+    .name {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 400;
+        &.playing {
+            color: #1db954;
+        }
+    }
+
+    .artist {
+        color: #b3b3b3;
+        display: flex;
+
+        .artist-name:hover {
+            text-decoration: underline;
+        }
+
+    }
+}
+.album-image {
+    img {
+        width: 40px;
+        height: 40px;
+        margin-right: 16px;
+    }
+}
+
+.title {
+    display: flex;
+}

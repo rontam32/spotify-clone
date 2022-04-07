@@ -1,0 +1,14 @@
+<head>
+    <title></title>
+</head>
+<body>
+<script src="oidc-client.min.js"></script>
+<script>
+    new UserManager({
+        authority: 'https://accounts.spotify.com'
+    }).signinSilentCallback()
+        .catch((err) => {
+            console.log(err);
+        });
+</script>
+</body>

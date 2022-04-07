@@ -1,0 +1,48 @@
+.artists {
+    overflow: hidden;
+    word-break: break-word;
+    font-size: 0.875rem;
+    color: rgba(255,255,255,.7);
+    margin-top: 10px;
+    .name {
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+.info {
+    color: #b3b3b3;
+    display: flex;
+    font-size: 14px;
+    margin-top: 5px;
+
+    .info-cell:not(:first-child):before {
+        content: "•";
+        margin: 0 4px;
+    } 
+
+    .user-info {
+        color: #fff !important;
+        font-weight: 700;
+        letter-spacing: normal;
+        line-height: 16px;
+        text-transform: none;
+    }
+
+    .liked-song {
+        display: inline-flex;
+        column-gap: 10px;
+    }
+}
+
+
+span {
+    display: inline-flex;
+    align-items: center;
+
+}
+
+.avatar {
+    width: 30px !important;
+    height: 30px !important;
+}

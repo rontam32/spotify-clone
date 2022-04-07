@@ -1,0 +1,31 @@
+.time {
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #6a6a6a;
+}
+
+.button {
+    width: 32px !important;
+    height: 32px !important;
+    &.skip {
+        color: rgb(179, 179, 179) !important;
+        background: transparent !important;
+        svg {
+            color: rgb(179, 179, 179);
+        }
+        &:hover {
+            color: white;
+        }
+    }
+
+    &.play {
+        background-color: rgb(255, 255, 255) !important;
+        color: black !important;
+        svg {
+            color: black;
+        }
+
+    }
+}

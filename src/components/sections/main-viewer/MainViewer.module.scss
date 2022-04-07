@@ -1,0 +1,13 @@
+.main-container {
+    padding: 0 32px;
+    margin-top: -64px;
+}
+
+.main-viewer {
+    flex: 1;
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    position: relative;
+}

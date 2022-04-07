@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: black;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.MuiTableCell-head {
+  color: #b3b3b3 !important;
+}
+
+.MuiPaper-root {
+  background-color: transparent !important;
+}
+
+.default-table-cell {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #b3b3b3 !important;
+}
+
+.MuiTableBody-root {
+  .MuiTableRow-root:hover {
+    background-color: rgba(255,255,255,.1);
+    cursor: pointer;
+  }
+  .MuiTableRow-root .MuiTableCell-root {
+    border-bottom: transparent;
+  }
+}
+
+.MuiTableHead-root .MuiTableRow-root .MuiTableCell-root {
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    margin-bottom: 10px;
+}
+
+.MuiTableCell-root {
+  padding: 8px !important;
+}
+
+.MuiSnackbar-root {
+  .MuiSnackbarContent-root {
+    justify-content: center;
+    padding: 6px 26px;
+    min-width: unset;
+  }
+  background-color: #0d72ea;
+  border-radius: 5px;
+}

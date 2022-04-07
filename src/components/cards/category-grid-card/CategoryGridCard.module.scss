@@ -1,0 +1,70 @@
+.card {
+    color: #fff;
+    background-color: #181818;
+    
+
+    .inner-card-container {
+        width: 100%;
+        flex: 1;
+        padding: 16px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .image-wrapper {
+            margin-bottom: 16px;
+            position: relative;
+            position: relative;
+            
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            display: none;
+        }
+    }
+
+    .image {
+        width: 100%;
+        height: 100%;
+        background-position: 50%;
+        background-size: cover;
+        padding-bottom: 100%;
+    }
+
+    .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: normal;
+        line-height: 24px;
+        text-transform: none;
+    }
+
+    .description {
+        color: rgb(179, 179, 179);
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        margin-top: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        white-space: normal;
+        font-size: 14px;
+
+        .artist:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.card:hover {
+    .inner-card-container .image-wrapper .button-container {
+        display: block;
+    }
+}

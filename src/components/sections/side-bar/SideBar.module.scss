@@ -1,0 +1,35 @@
+.logo {
+    height: 40px;
+    max-width: 131px;
+    width: 100%;
+}
+
+.drawer {
+    width: 254px;
+    flex-direction: column;
+    display: flex;
+}
+
+.link {
+    width: 100%;
+    display: contents;
+    
+}
+
+.active-link {
+    .MuiListItemButton-root {
+        color: white;
+        .MuiListItemIcon-root {
+            color: white !important;
+        }
+
+        .MuiListItemText-root {
+            color: white !important;
+        }
+    }
+}
+
+.menu-container {
+    flex: 1;
+    overflow-y: auto;
+}

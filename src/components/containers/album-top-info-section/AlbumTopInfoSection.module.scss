@@ -1,0 +1,35 @@
+.artist-info {
+    flex-wrap: wrap;
+    margin-top: 8px;
+    justify-content: flex-start;
+    display: flex;
+    font-size: 14px;
+    
+    .extra-info {
+        color: #b3b3b3;
+    }
+    .extra-info:not(:first-child):before {
+        content: "•";
+        margin: 0 4px;
+    }  
+
+    span {
+        display: inline-flex;
+        align-items: center;
+
+        img {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        a {
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: normal;
+            line-height: 16px;
+            text-transform: none;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.button {
+    color: white !important;
+    text-transform: none !important;
+    border-radius: 4px !important;
+    padding: 8px 16px !important;
+}
+
+.selected {
+    background-color: #333 !important;
+    :hover {
+        background-color: #333 !important; 
+    }
+}
