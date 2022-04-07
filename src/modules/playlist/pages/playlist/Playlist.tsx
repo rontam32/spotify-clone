@@ -13,6 +13,7 @@ import useHeader from "../../../../hooks/use-header";
 import classes from "./Playlist.module.scss";
 import TrackTable from "../../../../contexts/DataGridContext";
 import { PLAYLIST_TABLE_HEADER } from "../../Playlist.constant";
+import { getPlaylistDetail, getPlaylistTracks } from "../../async-thunks/playlistAsyncThunk";
 
 const Playlist = () => {
   const params = useParams();
@@ -24,7 +25,7 @@ const Playlist = () => {
   useHeader();
   const snackBarHandler = useContext(SnackbarContext).openSnackBar;
   const { userProfile } = useSelector((state: any) => state.auth);
-  // const { playlistResponse } = useSelector((state: any) => state['playlist-display']);
+  const { playlistDetail, playlistTracks } = useSelector((state: any) => state['playlist-display']);
   const playlistId = params.playlistId;
   const favoriteHandler = async (isFavoriteSelected: boolean) => {
     if (playlistId) {
@@ -41,43 +42,24 @@ const Playlist = () => {
       }
     }
   };
-  const [detail, setDetail] = useState<{
-      playlistDetail: GenericPlaylist.PlaylistDetail;
-      playlistTracks: Track[];
-    }>();
+  // const [detail, setDetail] = useState<{
+  //     playlistDetail: GenericPlaylist.PlaylistDetail;
+  //     playlistTracks: Track[];
+  //   }>();
 
   useEffect(() => {
-    const getDetail = async () => {
-      const playlistDetailResponse = !isLikedSongs ? await api.get(
-        `/playlists/${playlistId}`,
-        {}
-      ) : null;
-      const playlistTracksResponse = await api.get(
-        !isLikedSongs ? `/playlists/${playlistId}/tracks` : '/me/tracks',
-        {
-          offset: 0,
-          limit: isLikedSongs ? 50 : 100,
-        }
-      );
-
-      setDetail({
-        playlistDetail: playlistDetailResponse,
-        playlistTracks: playlistTracksResponse.items.map((item: any) => {
-          const track = {...item.track};
-          track.added_at = item.added_at;
-          return track;
-        }) as Track[],
-      });
-    };
-
-    getDetail();
+    if (playlistId) {
+      console.log(playlistId);
+      dispatch(getPlaylistDetail({playlistId}));
+      dispatch(getPlaylistTracks({playlistId, isLikedSongs}));
+    }
   }, [playlistId, isLikedSongs]);
 
   useEffect(() => {
     const checkSavedPlaylist = async () => {
-      if (detail?.playlistDetail && userProfile.id) {
+      if (playlistDetail && userProfile.id) {
         const response: boolean[] = await api.get(
-          `/playlists/${detail.playlistDetail.id}/followers/contains?ids=${userProfile.id}`,
+          `/playlists/${playlistDetail.id}/followers/contains?ids=${userProfile.id}`,
           {}
         );
         setIsPlaylistSaved(response[0]);
@@ -85,31 +67,31 @@ const Playlist = () => {
     };
 
     checkSavedPlaylist();
-  }, [detail?.playlistDetail, userProfile.id]);
+  }, [playlistDetail, userProfile.id]);
 
   return (
     <>
       <PlaylistTopInfoSection
-          playlistDetail={detail?.playlistDetail}
-          playlistTracks={detail?.playlistTracks}
+          playlistDetail={playlistDetail}
+          playlistTracks={playlistTracks}
       ></PlaylistTopInfoSection>
-      {detail && (
+      {playlistDetail && (
         <ActionBar
           favoriteHandler={favoriteHandler}
-          categoryDetail={detail.playlistDetail}
+          categoryDetail={playlistDetail}
           checkIsCategorySaved={isPlaylistSaved}
-          albumDetail={detail.playlistTracks[0].album}
-          albumTrackNumber={detail.playlistTracks[0].track_number}
+          albumDetail={playlistTracks[0]?.album}
+          albumTrackNumber={playlistTracks[0]?.track_number || ''}
         />
       )}
 
       <div className={classes["table-container"]}>
 
         <TrackTable tableConfig={{
-          rows: detail?.playlistTracks || [],
+          rows: playlistTracks || [],
           headers: PLAYLIST_TABLE_HEADER(snackBarHandler),
-          categoryUri: detail?.playlistDetail?.uri || "",
-          categoryDetail: detail?.playlistDetail,
+          categoryUri: playlistDetail?.uri || "",
+          categoryDetail: playlistDetail,
           isLikedSongs,
           isSearchResultOrLikedSongs: true
         }}/>

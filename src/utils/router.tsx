@@ -61,8 +61,10 @@ export const renderLazyLoad = (compRoute: string, compModuleName: string) => {
     import(
       /* webpackChunkName: "[request]" */ `../modules/${compModuleName}`
     ).then((module) => {
-      if (module.slice)
-        injectAsyncReducer(compModuleName, module.slice.reducer);
+      if (module.slice) {
+        // define slice name in index file if redux slice name is different from module name
+        injectAsyncReducer(module.sliceName || compModuleName, module.slice.reducer);
+      }
       return import(`../modules/${compModuleName + compRoute}`);
     })
   );
