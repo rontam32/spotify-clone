@@ -22,7 +22,7 @@ const CategoryGrid = ({
     <>
       <div className={classes["media-top-section"]}>
         <h2>{title}</h2>
-        {id && <Link className={classes['right-section']} to={seeAllLink} reloadDocument={reloadDocumentWhenSeeAll}>See All</Link>}
+        {id && seeAllLink && <Link className={classes['right-section']} to={seeAllLink} reloadDocument={reloadDocumentWhenSeeAll}>See All</Link>}
       </div>
       <GridContainer>
         {contents.map((content) => {

@@ -41,10 +41,13 @@ export const getPlaylistTracks = createAsyncThunk(
     isLikedSongs: boolean;
   }) => {
     const response = await service.getPlaylistTracks(playlistId || '', isLikedSongs);
-    return response.items.map((item: any) => {
-      const track = { ...item.track };
-      track.added_at = item.added_at;
-      return track;
-    }) as Track[];
+    return {
+      savedTracks: response.items.map((item: any) => {
+        const track = { ...item.track };
+        track.added_at = item.added_at;
+        return track;
+      }) as Track[],
+      totalSavedTracks: response.total
+    };
   }
 );

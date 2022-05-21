@@ -46,11 +46,9 @@ const Footer = () => {
                     <div className={classes['cover-info']}>
                         <Link className={classes.name} to={`/album/${albumInfo.current.albumId}`}>{currentPlaybackTrack.name}</Link>
                         <div className={classes.artists}>{albumInfo.current.albumArtists.map((artist, index) => {
-                            return (
-                                <>
+                            return <>
                                 <Link key={artist.id} className={classes['artist-name']} to={`/artist/${artist.id}`}>{artist.name}</Link>{index !== (albumInfo.current.albumArtists.length - 1) ? ', ' : ''}
-                                </>
-                            );
+                            </>;
                         })}</div>
                     </div>
                 </div>}

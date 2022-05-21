@@ -7,7 +7,7 @@ import { GenericProps } from "../../../models/Application";
 
 const CustomNavLink = ({menuItem}: GenericProps<{menuItem: MenuItem}>) => {
     const resolved = useResolvedPath(menuItem.link);
-    const match = useMatch({ path: `${resolved.pathname}/*`, end: true });
+    const match = useMatch({ path: menuItem.matchPattern ? `${menuItem.matchPattern}/*` : `${resolved.pathname}/*`, end: true });
     return (
         <NavLink className={classes.link} to={menuItem.link}>
                   <ListItemButton

@@ -7,13 +7,15 @@ const initialState: {
     playlistDetail: GenericPlaylist.PlaylistDetail | null;
     playlistTracks: Track[];
     isPlaylistSaved: boolean;
+    totalSavedTracks: number;
 } = {
     playlistDetail: null,
     playlistTracks: [],
-    isPlaylistSaved: false
+    isPlaylistSaved: false,
+    totalSavedTracks: 0
   };
 
-export const slice = createSlice({
+export const playlistSlice = createSlice({
     name: 'playlist-display',
     initialState,
     reducers: {},
@@ -27,7 +29,8 @@ export const slice = createSlice({
         });
 
         builder.addCase(getPlaylistTracks.fulfilled, (state, action) => {
-            state.playlistTracks = action.payload;
+            state.playlistTracks = action.payload.savedTracks;
+            state.totalSavedTracks = action.payload.totalSavedTracks;
         });
       },
 });

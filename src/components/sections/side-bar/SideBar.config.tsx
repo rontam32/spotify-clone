@@ -17,7 +17,8 @@ export const MENU_ITEMS_CONFIG: MenuItem[] = [
     {
         iconCmp: <LibraryMusicIcon />,
         itemText: 'Your Library',
-        link: '/collection/playlists'
+        link: '/collection/playlists',
+        matchPattern: '/collection'
     },
     {
         iconCmp: <img style={{

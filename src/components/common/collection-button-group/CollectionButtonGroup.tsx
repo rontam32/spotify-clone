@@ -1,11 +1,10 @@
-import { Button, ButtonGroup } from "@mui/material";
+import { Button } from "@mui/material";
 import { useContext, useState } from "react";
 import { HeaderContext } from "../../../contexts";
 import classes from "./CollectionButtonGroup.module.scss";
 
 const TYPES: { [key: string]: string } = {
   playlists: "Playlists",
-  podcasts: "Podcasts",
   artists: "Artists",
   albums: "Albums",
 };

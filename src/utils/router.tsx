@@ -1,15 +1,17 @@
 import { lazy, Suspense } from "react";
 import RouteConfig from "../models/Application/router";
 import { injectAsyncReducer } from "../redux/store";
-import { Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
+import { isArray } from "lodash";
+import { Slice } from "@reduxjs/toolkit";
 
 export const renderConfigs = (routeConfigs: RouteConfig) => {
   let LazyLoadElement: any = null;
-  if (routeConfigs.lazyLoadConfig?.compRoute) {
+  if (routeConfigs.element) {
+    LazyLoadElement = routeConfigs.element;
+  } else if (routeConfigs.lazyLoadConfig?.compRoute) {
     const { compModuleName, compRoute } = routeConfigs.lazyLoadConfig;
     LazyLoadElement = renderLazyLoad(compRoute, compModuleName);
-  } else if (routeConfigs.element) {
-    LazyLoadElement = routeConfigs.element;
   }
 
   const routeChildren = (
@@ -27,6 +29,7 @@ export const renderConfigs = (routeConfigs: RouteConfig) => {
         }
         return (
           <Route
+            key={config.path}
             path={config.path}
             element={
               <Suspense fallback={<></>}>
@@ -39,21 +42,24 @@ export const renderConfigs = (routeConfigs: RouteConfig) => {
     </>
   );
 
-  if (LazyLoadElement)
+  if (LazyLoadElement) {
     return (
       <Route
+        key={routeConfigs.path}
         path={routeConfigs.path}
         element={
-          <Suspense fallback={<></>}>
-            <LazyLoadElement />
-          </Suspense>
+          routeConfigs.lazyLoadConfig?.redirectRoute ? <Navigate replace to={routeConfigs.lazyLoadConfig?.redirectRoute} /> :
+            <Suspense fallback={<></>}>
+              <LazyLoadElement />
+            </Suspense>
         }
       >
         {routeChildren}
       </Route>
     );
+  }
 
-  return <Route path={routeConfigs.path}>{routeChildren}</Route>;
+  return <Route key={routeConfigs.path} path={routeConfigs.path}>{routeChildren}</Route>;
 };
 
 export const renderLazyLoad = (compRoute: string, compModuleName: string) => {
@@ -63,7 +69,15 @@ export const renderLazyLoad = (compRoute: string, compModuleName: string) => {
     ).then((module) => {
       if (module.slice) {
         // define slice name in index file if redux slice name is different from module name
-        injectAsyncReducer(module.sliceName || compModuleName, module.slice.reducer);
+        //slice can be defined as single slice or array of slices
+
+        if (isArray(module.slice)) {
+          module.slice.map((slice: Slice) => {
+            injectAsyncReducer(slice.name, slice.reducer);
+          })
+        } else {
+          injectAsyncReducer(compModuleName || module.slice.name, module.slice.reducer);
+        }
       }
       return import(`../modules/${compModuleName + compRoute}`);
     })

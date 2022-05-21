@@ -1,12 +1,10 @@
 import { Log, User, UserManager } from "oidc-client";
 import { IDENTITY_CONFIG, METADATA_CONFIG } from "./auth-config";
-import api from "../../utils/api";
 import PlaybackService from "../playback/playback.service";
 import { store } from "../../redux/store";
 import { authActions, getUserProfile } from "../../redux/auth/auth-slice";
 import {
   getPlaylist,
-  playlistActions,
 } from "../../redux/playlist/playlist-slice";
 
 export default class AuthService {

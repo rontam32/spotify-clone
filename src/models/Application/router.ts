@@ -1,4 +1,5 @@
 import {ElementType, ReactNode} from "react";
+import { StringLiteralLike } from "typescript";
 
 interface RouteConfig {
     path: string;
@@ -7,6 +8,7 @@ interface RouteConfig {
     lazyLoadConfig?: {
         compModuleName: string;
         compRoute?: string;
+        redirectRoute?: string;
     }
     
 }

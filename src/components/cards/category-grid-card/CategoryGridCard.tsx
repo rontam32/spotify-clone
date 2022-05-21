@@ -10,7 +10,7 @@ import PlayButton from "../../common/buttons/play-button/PlayButton";
 import { useDispatch, useSelector } from "react-redux";
 import { togglePlay } from "../../../redux/playback/playback-action";
 import { createSelector } from "@reduxjs/toolkit";
-import { cloneDeep } from "lodash";
+import { cloneDeep, uniqueId } from "lodash";
 
 const CategoryGridCard = ({
   name,
@@ -38,7 +38,6 @@ const CategoryGridCard = ({
       player.togglePlay()
       return;
     }
-    console.log(trackNumber, uri);
     if (uri) dispatch(togglePlay(trackNumber, uri, true));
   }, [trackUri, uri, player]);
 
@@ -49,17 +48,17 @@ const CategoryGridCard = ({
 
   let artistContent;
   if (artists) {
+    const randomStr = uniqueId();
     artistContent = artists.map((artist, index) => (
-      <>
+      <div key={artist.id + randomStr}>
         <Link
           className={classes.artist}
-          key={artist.id + index}
           to={`/artist/${artist.id}`}
         >
           {artist.name}
         </Link>
         {index !== artists!.length - 1 ? ", " : ""}
-      </>
+      </div>
     ));
   }
   return (
